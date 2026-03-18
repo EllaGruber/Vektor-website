@@ -27,7 +27,7 @@ A single self-contained `index.html` file. Open it in any browser and it works.
 
 ## Data
 
-Saved in a google sheets see Private : https://EllaGruber.github.io/vektor_internal
+Saved in a google sheets see Private : https://github.com/EllaGruber/Vektor_internal
    
 ## Live site
 
