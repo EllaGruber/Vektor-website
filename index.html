@@ -606,8 +606,15 @@
     /* ── RESEARCHERS ── */
     .researchers-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.4rem;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .researchers-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .researchers-grid { grid-template-columns: 1fr; }
     }
     .researcher-bio-card {
       background: var(--white);
@@ -618,6 +625,7 @@
       flex-direction: column;
       gap: 0.8rem;
       transition: box-shadow 0.2s, transform 0.2s;
+      min-width: 0;
     }
     .researcher-bio-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); transform: translateY(-2px); }
     .researcher-bio-header { display: flex; align-items: center; gap: 1rem; }
@@ -635,7 +643,7 @@
     .researcher-bio-name { font-weight: 700; color: var(--navy); font-size: 0.97rem; }
     .researcher-bio-role { font-size: 0.78rem; color: var(--teal); font-weight: 600; margin-top: 0.15rem; }
     .researcher-bio-text { font-size: 0.86rem; color: var(--muted); line-height: 1.65; flex-grow: 1; }
-    .researcher-bio-link { font-size: 0.82rem; font-weight: 600; color: var(--blue); text-decoration: none; }
+    .researcher-bio-link { font-size: 0.82rem; font-weight: 600; color: var(--blue); text-decoration: none; display: inline-block; margin-right: 0.8rem; margin-top: 0.3rem; }
     .researcher-bio-link:hover { text-decoration: underline; }
 
     .researcher-avatar-photo {
@@ -757,6 +765,29 @@
       line-height: 1;
     }
     .stat-card .lbl { font-size: 0.82rem; color: #adc3e8; margin-top: 0.3rem; }
+
+    /* ── FAQ ── */
+    .faq-grid { display: flex; flex-direction: column; gap: 0.8rem; max-width: 820px; }
+    .faq-item { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--white); }
+    .faq-q {
+      padding: 1.1rem 1.4rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: background 0.15s;
+    }
+    .faq-q:hover { background: var(--cream); }
+    .faq-q::after { content: '+'; font-size: 1.3rem; color: var(--teal); flex-shrink: 0; font-weight: 300; }
+    .faq-q.open { color: var(--teal); }
+    .faq-q.open::after { content: '−'; }
+    .faq-a { display: none; padding: 0 1.4rem 1.2rem; }
+    .faq-a.open { display: block; }
+    .faq-a p { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
 
     /* ── GDPR MODAL ── */
     .modal-overlay {
@@ -887,6 +918,7 @@
     <li><a href="#videos" data-en="Videos" data-sv="Videor">Videos</a></li>
     <li><a href="#teachers" data-en="For Teachers" data-sv="För Lärare">For Teachers</a></li>
     <li><a href="#questionnaire" data-en="Questionnaire" data-sv="Enkät">Questionnaire</a></li>
+    <li><a href="faq.html" data-en="FAQ" data-sv="FAQ">FAQ</a></li>
     <li><a href="#announcements" data-en="News" data-sv="Nyheter">News</a></li>
     <li><a href="#" onclick="document.getElementById('gdpr-modal').classList.add('open');return false;" data-en="GDPR & Data" data-sv="GDPR & Data">GDPR & Data</a></li>
     <li><a href="#contact" class="nav-cta" data-en="Contact" data-sv="Kontakt">Contact</a></li>
@@ -912,6 +944,10 @@
   
 <div class="hero-inner">
     <div class="hero-badge" data-en="Karolinska Institutet · Klingberg Lab" data-sv="Karolinska Institutet · Klingberggruppen">Karolinska Institutet · Klingberg Lab</div>
+    <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(15,163,163,0.15);border:1px solid rgba(15,163,163,0.35);padding:5px 14px;border-radius:20px;font-size:0.8rem;letter-spacing:0.06em;color:#7de8e8;margin-bottom:1.5rem;margin-left:0.5rem;">
+      <span>✦</span>
+      <span data-en="100% free · Part of an ongoing research project" data-sv="100% gratis · Del av ett pågående forskningsprojekt">100% free · Part of an ongoing research project</span>
+    </div>
     <h1 data-en="Vektor: an evidence-based tool for early <em>mathematics</em> learning" data-sv="Vektor: ett evidensbaserat verktyg för tidig <em>matematikutbildning</em>">Vektor: an evidence-based tool for early <em>mathematics</em> learning</h1>
     <div style="display:flex;align-items:flex-start;gap:3rem;margin-bottom:2.5rem;flex-wrap:wrap;">
       <p style="margin-bottom:0;flex:1;min-width:260px;" data-en="Vektor is an adaptive training app developed at Karolinska Institutet. It combines visuospatial working memory training with number-line tasks to improve mathematical ability in children aged 6–9, based on randomised controlled trials with over 17,000 participants." data-sv="Vektor är en adaptiv träningsapp utvecklad vid Karolinska Institutet. Den kombinerar visuospatialt arbetsminnesträning med tallinjuppgifter för att förbättra matematisk förmåga hos barn i åldrarna 6–9, baserat på randomiserade kontrollerade studier med över 17 000 deltagare.">Vektor is an adaptive training app developed at Karolinska Institutet. It combines visuospatial working memory training with number-line tasks to improve mathematical ability in children aged 6–9, based on randomised controlled trials with over 17,000 participants.</p>
@@ -963,7 +999,9 @@
             <div class="researcher-bio-role" data-en="PhD Student · Karolinska Institutet" data-sv="Doktorand · Karolinska Institutet">PhD Student · Karolinska Institutet</div>
           </div>
         </div>
-        <p class="researcher-bio-text" data-en="Principal investigator of this project. Ella's doctoral research focuses on the integration of cognitive training and early mathematics education, combining adaptive learning technology with classroom-based interventions." data-sv="Huvudansvarig för detta projekt. Ellas doktorsavhandling fokuserar på integrationen av kognitiv träning och tidig matematikutbildning, och kombinerar adaptiv inlärningsteknik med klassrumsbaserade insatser.">Principal investigator of this project. Ella's doctoral research focuses on the integration of cognitive training and early mathematics education, combining adaptive learning technology with classroom-based interventions.</p>
+        <p class="researcher-bio-text" data-en="Principal investigator of this project. Ella&apos;s doctoral research focuses on the integration of cognitive training and early mathematics education, combining adaptive learning technology with classroom-based interventions." data-sv="Huvudansvarig för detta projekt. Ellas doktorsavhandling fokuserar på integrationen av kognitiv träning och tidig matematikutbildning, och kombinerar adaptiv inlärningsteknik med klassrumsbaserade insatser.">Principal investigator of this project. Ella's doctoral research focuses on the integration of cognitive training and early mathematics education, combining adaptive learning technology with classroom-based interventions.</p>
+        <a class="researcher-bio-link" href="https://uk.linkedin.com/in/ella-gruber-6a9a44213" target="_blank">LinkedIn ↗</a>
+        <a class="researcher-bio-link" href="https://ki.se/personer/ella-gruber" target="_blank">KI Profile ↗</a>
       </div>
 
       <div class="researcher-bio-card">
@@ -976,6 +1014,7 @@
         </div>
         <p class="researcher-bio-text" data-en="World-leading researcher in cognitive neuroscience and working memory. His group has led large-scale educational RCTs involving thousands of children, including the nationwide Vektor trials (Judd &amp; Klingberg, 2021), and developed the AI-adaptive models underpinning this project." data-sv="Världsledande forskare inom kognitiv neurovetenskap och arbetsminne. Hans grupp har lett storskaliga pedagogiska RCT:er med tusentals barn, inklusive de nationella Vektor-studierna (Judd &amp; Klingberg, 2021), och utvecklat de AI-adaptiva modeller som ligger till grund för detta projekt.">World-leading researcher in cognitive neuroscience and working memory. His group has led large-scale educational RCTs involving thousands of children, including the nationwide Vektor trials (Judd &amp; Klingberg, 2021), and developed the AI-adaptive models underpinning this project.</p>
         <a class="researcher-bio-link" href="https://klingberglab.se" target="_blank">klingberglab.se ↗</a>
+        <a class="researcher-bio-link" href="https://scholar.google.com/citations?hl=en&user=LMmiCewAAAAJ" target="_blank">Google Scholar ↗</a>
       </div>
 
       <div class="researcher-bio-card">
@@ -986,7 +1025,21 @@
             <div class="researcher-bio-role" data-en="Co-Supervisor · University of Gothenburg" data-sv="Bihandledare · Göteborgs universitet">Co-Supervisor · University of Gothenburg</div>
           </div>
         </div>
-        <p class="researcher-bio-text" data-en="Leading expert in early mathematics education, currently leading the development of Sweden's national mathematics curriculum for young children. He runs several large-scale teaching intervention programmes funded by Vetenskapsrådet and MAW, ensuring the pedagogical integration and ecological validity of the intervention." data-sv="Ledande expert inom tidig matematikundervisning, och leder för närvarande utvecklingen av Sveriges nationella matematikläroplan för yngre barn. Han driver flera storskaliga undervisningsinterventionsprogram finansierade av Vetenskapsrådet och MAW.">Leading expert in early mathematics education, currently leading the development of Sweden's national mathematics curriculum for young children. He runs several large-scale teaching intervention programmes funded by Vetenskapsrådet and MAW, ensuring the pedagogical integration and ecological validity of the intervention.</p>
+        <p class="researcher-bio-text" data-en="Leading expert in early mathematics education, currently leading the development of Sweden&apos;s national mathematics curriculum for young children. He runs several large-scale teaching intervention programmes funded by Vetenskapsrådet and MAW, ensuring the pedagogical integration and ecological validity of the intervention." data-sv="Ledande expert inom tidig matematikundervisning, och leder för närvarande utvecklingen av Sveriges nationella matematikläroplan för yngre barn. Han driver flera storskaliga undervisningsinterventionsprogram finansierade av Vetenskapsrådet och MAW.">Leading expert in early mathematics education, currently leading the development of Sweden's national mathematics curriculum for young children. He runs several large-scale teaching intervention programmes funded by Vetenskapsrådet and MAW, ensuring the pedagogical integration and ecological validity of the intervention.</p>
+        <a class="researcher-bio-link" href="https://www.gu.se/en/research/didactic-classroom-studies" target="_blank">GU Research Group ↗</a>
+        <a class="researcher-bio-link" href="https://scholar.google.com/citations?hl=en&user=cBDbCOcAAAAJ" target="_blank">Google Scholar ↗</a>
+      </div>
+
+      <div class="researcher-bio-card">
+        <div class="researcher-bio-header">
+          <img class="researcher-avatar-photo" src="data:image/jpeg;base64,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" alt="Jonas Beckeman">
+          <div>
+            <div class="researcher-bio-name">Jonas Beckeman</div>
+            <div class="researcher-bio-role" data-en="App Developer · Co-creator of Vektor" data-sv="Apputvecklare · Medskapare av Vektor">App Developer · Co-creator of Vektor</div>
+          </div>
+        </div>
+        <p class="researcher-bio-text" data-en="Together with David Sjölander, Jonas co-developed the original Vektor app in close collaboration with Torkel Klingberg&apos;s lab. Their work on combining educational game design with adaptive cognitive training formed the technical foundation of the Vektor platform." data-sv="Tillsammans med David Sjölander var Jonas med och utvecklade den ursprungliga Vektor-appen i nära samarbete med Torkel Klingbergs labb. Deras arbete med att kombinera pedagogisk speldesign med adaptiv kognitiv träning lade den tekniska grunden för Vektor-plattformen.">Together with David Sjölander, Jonas co-developed the original Vektor app in close collaboration with Torkel Klingberg's lab. Their work on combining educational game design with adaptive cognitive training formed the technical foundation of the Vektor platform.</p>
+        <a class="researcher-bio-link" href="https://se.linkedin.com/in/jonas-beckeman-3463651" target="_blank">LinkedIn ↗</a>
       </div>
 
       <div class="researcher-bio-card">
@@ -998,6 +1051,8 @@
           </div>
         </div>
         <p class="researcher-bio-text" data-en="Leading authority on early numerical cognition. His pioneering work established &quot;groupitizing&quot; as the strongest cognitive predictor of early mathematics achievement (Guillaume et al., 2023; Starkey &amp; McCandliss, 2014). He acts as a close scientific advisor on the integration of groupitizing constructs into this project." data-sv="Ledande auktoritet inom tidig numerisk kognition. Hans banbrytande arbete etablerade &quot;groupitizing&quot; som den starkaste kognitiva prediktorn för tidig matematisk prestation (Guillaume et al., 2023; Starkey &amp; McCandliss, 2014).">Leading authority on early numerical cognition. His pioneering work established "groupitizing" as the strongest cognitive predictor of early mathematics achievement (Guillaume et al., 2023; Starkey &amp; McCandliss, 2014). He acts as a close scientific advisor on the integration of groupitizing constructs into this project.</p>
+        <a class="researcher-bio-link" href="https://edneuroinitiative.stanford.edu/people/bruce-mccandliss" target="_blank">Stanford EdNeuro ↗</a>
+        <a class="researcher-bio-link" href="https://scholar.google.com/citations?user=XduL3a0AAAAJ&hl=en" target="_blank">Google Scholar ↗</a>
       </div>
 
     </div>
@@ -1341,6 +1396,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- CONTACT -->
 <section id="contact">
