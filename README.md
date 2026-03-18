@@ -6,7 +6,7 @@ Vektor is an adaptive mathematics training app developed at Karolinska Institute
 
 ## What's in this repo
 
-A single self-contained `index.html` file — no frameworks, no dependencies, no build step needed. Open it in any browser and it works.
+A single self-contained `index.html` file. Open it in any browser and it works.
 
 ## Features
 
